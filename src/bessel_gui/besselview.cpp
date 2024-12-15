@@ -1,6 +1,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QSlider>
+#include <QDial>
 #include <QLabel>
 
 #include "besselview.h"
@@ -15,20 +15,20 @@ BesselView::BesselView(QWidget *parent)
     QVBoxLayout *layout1 = new QVBoxLayout;
 	QHBoxLayout *layout2 = new QHBoxLayout;
 
-    slider = new QSlider(Qt::Vertical, this);
-    slider->setRange(0, 99);
-    slider->setValue(bessel->output());
-    slider->setMinimumSize(slider->sizeHint());
-	slider->setPageStep(1);
-    layout1->addWidget(slider);
+    dial = new QDial(this);
+    dial->setRange(0, 99);
+    dial->setValue(bessel->output());
+    dial->setMinimumSize(dial->sizeHint());
+	dial->setPageStep(1);
+    layout1->addWidget(dial);
 
     label = new QLabel(this);
-	label->setNum(slider->value());
+	label->setNum(dial->value());
     label->setMinimumSize(label->sizeHint());
     layout1->addWidget(label);
 	
 	graph = new Graph(this);
-	sideBands(slider->value());
+	sideBands(dial->value());
 	graph->setMinimumSize(200, 100);
 	layout2->addWidget(graph, 1);
 	//layout2->addStretch();
@@ -39,8 +39,8 @@ BesselView::BesselView(QWidget *parent)
     setLayout(layout);
 	show();
 
-    connect(slider, SIGNAL(valueChanged(int)), label, SLOT(setNum(int)));
-    connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sideBands(int)));
+    connect(dial, SIGNAL(valueChanged(int)), label, SLOT(setNum(int)));
+    connect(dial, SIGNAL(valueChanged(int)), this, SLOT(sideBands(int)));
 }
 
 void BesselView::sideBands(int output)
@@ -50,7 +50,7 @@ void BesselView::sideBands(int output)
 
 BesselView::~BesselView()
 {
-    delete slider;
+    delete dial;
     delete label;
 
     delete bessel;

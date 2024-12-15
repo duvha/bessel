@@ -5,7 +5,7 @@
 
 class QVBoxLayout;
 class QHBoxLayout;
-class QSlider;
+class QDial;
 class QLabel;
 
 class Bessel;
@@ -23,7 +23,7 @@ public slots:
 
 private:
     QVBoxLayout *layout;
-    QSlider *slider;
+    QDial *dial;
     QLabel *label;
     Graph *graph;
 	
